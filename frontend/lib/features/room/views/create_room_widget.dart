@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:frontend/core/theme/app_theme.dart';
 
 Future<void> showCodePopup(BuildContext context, String code) {
   return showDialog(
     context: context,
     builder: (context) {
       return AlertDialog(
+        backgroundColor: AppTheme.primaryColor,
         shape: RoundedRectangleBorder(
+          side: BorderSide(
+            color: Colors.black,
+            width: 4
+          ),
           borderRadius: BorderRadius.circular(16),
         ),
         title: const Text(
           'Room Code',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: AppTheme.backgroundColor
+          ),
         ),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -28,9 +37,10 @@ Future<void> showCodePopup(BuildContext context, String code) {
                   Expanded(
                     child: Text(
                       code,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
+                        color: AppTheme.backgroundColor
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -41,7 +51,13 @@ Future<void> showCodePopup(BuildContext context, String code) {
                       Clipboard.setData(ClipboardData(text: code));
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('Code copied to clipboard!'),
+                          backgroundColor: AppTheme.primaryColor,
+                          content: Text(
+                            'Code copied to clipboard!',
+                            style: TextStyle(
+                              color: AppTheme.backgroundColor
+                            ),
+                          ),
                           duration: Duration(seconds: 1),
                         ),
                       );
@@ -55,7 +71,12 @@ Future<void> showCodePopup(BuildContext context, String code) {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text('Close'),
+            child: const Text(
+              'Close',
+              style: TextStyle(
+                color: AppTheme.backgroundColor
+              ),
+            ),
           ),
         ],
       );
