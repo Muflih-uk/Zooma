@@ -18,6 +18,7 @@ class AppRoutes {
   static const String register = '/register';
   static const String introduction = '/introduction';
   static const String initial = '/initial';
+  static const String controller = '/controller';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
