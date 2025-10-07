@@ -13,7 +13,7 @@ SECRET_KEY = "s&kov%s&rj($6v15*=f(hu4a14)$a5^g&dasyu5w5&msgud*i6"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["zooma.ranger.hackclub.app"]
 
 
 # Application definition
