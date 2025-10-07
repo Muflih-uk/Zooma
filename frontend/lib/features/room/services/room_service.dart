@@ -25,8 +25,7 @@ class RoomService {
       }
       return "Could not Generate Code";
     } catch (e) {
-      print("Error while creating room: $e");
-      return "Error";
+      return "Server Issue";
     }
   }
 
