@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_pKSJFxH8Z8
 createdAt: 2025-09-20T06:26:56.962109713
-updatedAt: 2025-10-07T14:02:40.379593997
+updatedAt: 2025-10-11T05:22:51.012142337
 workspaceId: wk_iYwvchmhb7
 folderId: fl_D7tRoptu8H
 authentication: {}
@@ -11,7 +11,7 @@ body:
   text: |-
     {
       "mentor_id": "ce63d664-0c1c-45e8-b752-6f3bd6217252",
-      "max_players": 5,
+      "max_players": 3,
       "num_questions": 5
     }
 bodyType: application/json

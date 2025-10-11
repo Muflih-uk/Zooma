@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_VtUhU7MVQA
 createdAt: 2025-09-20T06:27:06.911844187
-updatedAt: 2025-10-02T14:29:00.175337988
+updatedAt: 2025-10-11T05:31:44.025782102
 workspaceId: wk_iYwvchmhb7
 folderId: fl_D7tRoptu8H
 authentication: {}
@@ -10,8 +10,8 @@ authenticationType: null
 body:
   text: |-
     {
-      "room_code": "V29ACP",
-      "player_id": ${[ id ]}
+      "room_code": "3M0VGQ",
+      "player_id": "1ef81c13-9c3c-4ad3-affc-8b1fd2354dc5"
     }
 bodyType: application/json
 description: ''
