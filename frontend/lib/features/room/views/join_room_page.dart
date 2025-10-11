@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/core/di/dependency_injection.dart';
 import 'package:frontend/core/theme/app_theme.dart';
 import 'package:frontend/features/home/views/home_widget.dart';
+import 'package:frontend/features/room/controllers/room_controller.dart';
 
 class JoinRoomScreen extends StatefulWidget{
   @override
@@ -10,7 +12,7 @@ class JoinRoomScreen extends StatefulWidget{
 class _StateJoinRoomScreen extends State<JoinRoomScreen>{
 
   final TextEditingController _controller = TextEditingController();
-
+  final RoomController _roomController = getIt<RoomController>();
 
   @override
   void dispose(){
@@ -90,6 +92,7 @@ class _StateJoinRoomScreen extends State<JoinRoomScreen>{
                         ]
                       ),
                       child: TextFormField(
+                        controller: _controller,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20
@@ -133,7 +136,9 @@ class _StateJoinRoomScreen extends State<JoinRoomScreen>{
                     ),
                   ),
                   SizedBox(height: 60,),
-                  HomeWidget.textButton(name: "Join Room", onPress: (){})
+                  HomeWidget.textButton(name: "Join Room", onPress: (){
+                    _roomController.joinRoom(_controller.text.trim(), context);
+                  })
 
                 ],
               ),
