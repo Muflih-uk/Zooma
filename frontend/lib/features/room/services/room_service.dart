@@ -1,4 +1,3 @@
-
 import '../../../core/network/api_service.dart';
 
 class RoomService {
@@ -30,13 +29,22 @@ class RoomService {
   }
 
 
-  // Future<Room> joinRoom(String roomCode, String playerName) async {
-  //   final response = await apiService.post('/api/rooms/join', data: {
-  //     'roomCode': roomCode,
-  //     //'roomName': roomName
-  //   });
-  //   return Room.fromJson(response.data);
-  // }
+  Future<bool> joinRoom(String roomCode, String playerId) async {
+    try {
+      final response = await apiService.post(
+        'room/join/', 
+        data: {
+          "room_code": roomCode,
+          "player_id": playerId
+      });
+      if(response.statusCode == 200 || response.statusCode == 201){
+        return true; 
+      }
+      return false;
+    } catch(e){
+      return false; 
+    }
+  }
 
   // Future<Room> getRoomDetails(String roomCode) async {
   //   final response = await apiService.get('/api/rooms/$roomCode');
