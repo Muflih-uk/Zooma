@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/core/routes/app_routes.dart';
 import 'package:frontend/core/util/token_storage.dart';
 import 'package:frontend/features/room/views/create_room_widget.dart';
 import '../services/room_service.dart';
@@ -8,8 +9,8 @@ class RoomController extends ChangeNotifier {
 
   RoomController(this._roomService);
 
-  int _numberOfQuestion = 1;
-  int _roomSize = 1;
+  int _numberOfQuestion = 5;
+  int _roomSize = 3;
   bool _isLoading = false;
   String? _error;
 
@@ -39,17 +40,29 @@ class RoomController extends ChangeNotifier {
     }
   }
 
-  // Future<void> joinRoom(String roomCode, String playerName) async {
-  //   _setLoading(true);
-  //   try {
-  //     _currentRoom = await _roomService.joinRoom(roomCode, playerName);
-  //     _error = null;
-  //   } catch (e) {
-  //     _error = e.toString();
-  //   } finally {
-  //     _setLoading(false);
-  //   }
-  // }
+  Future<void> joinRoom(String roomCode, BuildContext ctx) async {
+    _setLoading(true);
+    try {
+      final id = await TokenStorage.getToken("id");
+      if(id != null){
+        final res = await _roomService.joinRoom(roomCode, id);
+        _error = null;
+        if(res){
+          Navigator.pushNamed(ctx, AppRoutes.tasks);
+        } else{
+          ScaffoldMessenger.of(ctx).showSnackBar(
+            SnackBar(
+              content: Text("The Room Join Failed"),
+            )
+          );
+        }
+      }
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _setLoading(false);
+    }
+  }
 
   // Future<void> getRoomDetails(String roomCode) async {
   //   _setLoading(true);
@@ -86,28 +99,28 @@ class RoomController extends ChangeNotifier {
   }
 
   void roomSizeIncrement(){
-    if (_roomSize < 10) {
+    if (_roomSize < 50) {
       _roomSize++;
       notifyListeners();
     }
   }
 
   void numberOfQuestionIncrement(){
-    if (_numberOfQuestion < 7) {
+    if (_numberOfQuestion < 10) {
       _numberOfQuestion++;
       notifyListeners();
     }
   }
 
   void roomSizeDecrement() {
-    if (_roomSize > 1) {
+    if (_roomSize > 3) {
       _roomSize--;
       notifyListeners();
     }
   }
 
   void numberOfQuestionDecrement() {
-    if (_numberOfQuestion > 1) {
+    if (_numberOfQuestion > 5) {
       _numberOfQuestion--;
       notifyListeners();
     }
