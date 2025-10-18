@@ -28,8 +28,8 @@ class _StateJoinRoomScreen extends State<JoinRoomScreen>{
         title: Text(
           "Join Room",
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 25
+            color: AppTheme.primaryColor,
+            fontSize: 30
           ),
         ),
         leadingWidth: 80,
