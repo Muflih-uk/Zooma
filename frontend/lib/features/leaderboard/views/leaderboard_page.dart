@@ -1,121 +1,87 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../controllers/leaderboard_controller.dart';
-import '../../../core/theme/app_theme.dart';
+import 'package:frontend/core/theme/app_theme.dart';
 
-class LeaderboardPage extends StatefulWidget {
-  final String roomCode;
-
-  const LeaderboardPage({
-    super.key,
-    required this.roomCode,
-  });
-
+class LeaderboardPage extends StatefulWidget{
   @override
-  State<LeaderboardPage> createState() => _LeaderboardPageState();
+  State<LeaderboardPage> createState() => _StateLeaderboard();
 }
 
-class _LeaderboardPageState extends State<LeaderboardPage> {
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<LeaderboardController>().loadLeaderboard(widget.roomCode);
-    });
-  }
+class _StateLeaderboard extends State<LeaderboardPage>{
 
+  List data = [
+    {
+      "id": "0e99cee1-f776-4609-8bcd-2f160e30db46",
+      "username": "Arun",
+      "validated_answers_count": 0
+    },
+    {
+      "id": "ce63d664-0c1c-45e8-b752-6f3bd6217252",
+      "username": "Muflih",
+      "validated_answers_count": 0
+    },
+    {
+      "id": "0e99cee1-f776-4609-8bcd-2f160e30db46",
+      "username": "Arun",
+      "validated_answers_count": 0
+    },
+    {
+      "id": "ce63d664-0c1c-45e8-b752-6f3bd6217252",
+      "username": "Muflih",
+      "validated_answers_count": 0
+    }
+  ];
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Leaderboard'),
+        title: Text(
+          "Leaderboard",
+          style: TextStyle(
+            color: AppTheme.primaryColor,
+            fontSize: 30
+          ),
+        ),
         centerTitle: true,
+        leadingWidth: 80,
+        leading: Padding(
+          padding: EdgeInsets.only(left: 30,bottom: 5),
+          child: IconButton(
+            style: IconButton.styleFrom(
+              elevation: 20,
+              foregroundColor: AppTheme.backgroundColor,
+              backgroundColor: AppTheme.primaryColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30)
+              )
+            ),
+            onPressed: (){
+              Navigator.pop(context);
+            }, 
+            icon: Icon(Icons.arrow_back)
+          ),
+        )
       ),
-      body: Consumer<LeaderboardController>(
-        builder: (context, controller, child) {
-          if (controller.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
-
-          if (controller.error != null) {
-            return Center(
+      body: Container(
+        width: double.maxFinite,
+        height: MediaQuery.of(context).size.height/2.5,
+        color: Colors.black,
+        child: Column(
+          children: [
+            Container(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Error: ${controller.error}',
-                    style: const TextStyle(color: Colors.red),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () => controller.loadLeaderboard(widget.roomCode),
-                    child: const Text('Retry'),
-                  ),
+                    "1",
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                  )
                 ],
               ),
-            );
-          }
-
-          if (controller.leaderboard.isEmpty) {
-            return const Center(
-              child: Text('No leaderboard data available'),
-            );
-          }
-
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: controller.leaderboard.length,
-            itemBuilder: (context, index) {
-              final entry = controller.leaderboard[index];
-              return Container(
-                margin: const EdgeInsets.only(bottom: 8),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Color(int.parse(entry.playerColor.replaceFirst('#', '0xff'))),
-                    child: Text(
-                      '${entry.rank}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  title: Text(
-                    entry.playerName,
-                    style: const TextStyle(fontWeight: FontWeight.w600),
-                  ),
-                  trailing: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: AppTheme.primaryColor.withOpacity(0.1),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      '${entry.score} pts',
-                      style: const TextStyle(
-                        color: AppTheme.primaryColor,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              );
-            },
-          );
-        },
+            )
+          ],
+        ),
       ),
     );
   }
