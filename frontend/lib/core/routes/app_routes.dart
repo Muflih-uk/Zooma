@@ -29,10 +29,7 @@ class AppRoutes {
       case createRoom:
         return MaterialPageRoute(builder: (_) => CreateRoomScreen());
       case leaderboard:
-        final args = settings.arguments as Map<String, dynamic>?;
-        return MaterialPageRoute(
-          builder: (_) => LeaderboardPage(roomCode: args?['roomCode'] ?? ''),
-        );
+        return MaterialPageRoute(builder: (_) => LeaderboardPage());
       case tasks:
         return MaterialPageRoute(
           builder: (_) => TasksScreen(),
