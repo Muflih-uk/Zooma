@@ -18,8 +18,8 @@ class CreateRoomScreen extends StatelessWidget{
         title: Text(
           "Create Room",
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 25
+            color: AppTheme.primaryColor,
+            fontSize: 30
           ),
         ),
         leadingWidth: 80,
