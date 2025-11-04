@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../models/leaderboard_model.dart';
+import 'package:frontend/core/util/token_storage.dart';
 import '../services/leaderboard_service.dart';
 
 class LeaderboardController extends ChangeNotifier {
@@ -7,12 +7,12 @@ class LeaderboardController extends ChangeNotifier {
 
   LeaderboardController(this._leaderboardService);
 
-  List<LeaderboardEntry> _leaderboard = [];
+  List<Map<String, dynamic>> _leaderboard = [];
   Map<String, dynamic>? _playerStats;
   bool _isLoading = false;
   String? _error;
 
-  List<LeaderboardEntry> get leaderboard => _leaderboard;
+  List<Map<String, dynamic>> get leaderboard => _leaderboard;
   Map<String, dynamic>? get playerStats => _playerStats;
   bool get isLoading => _isLoading;
   String? get error => _error;
@@ -20,8 +20,11 @@ class LeaderboardController extends ChangeNotifier {
   Future<void> loadLeaderboard(String roomCode) async {
     _setLoading(true);
     try {
-      _leaderboard = await _leaderboardService.getRoomLeaderboard(roomCode);
-      _error = null;
+      String? code = await TokenStorage.getToken("roomCode");
+      if(code != null){
+        _leaderboard = await _leaderboardService.getRoomLeaderboard(roomCode);
+        _error = null;
+      }
     } catch (e) {
       _error = e.toString();
     } finally {

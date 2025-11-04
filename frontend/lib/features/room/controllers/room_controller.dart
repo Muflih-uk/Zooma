@@ -31,6 +31,7 @@ class RoomController extends ChangeNotifier {
           numberOfQuestion: numberOfQuestion
         );
         _error = null;
+        await TokenStorage.saveToken(tokenKey: "roomCode",tokenValue: code);
         showCodePopup(ctx, code);
       }
     } catch (e) {

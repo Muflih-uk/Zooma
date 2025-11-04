@@ -1,16 +1,20 @@
 import '../../../core/network/api_service.dart';
-import '../models/leaderboard_model.dart';
 
 class LeaderboardService {
   final ApiService apiService;
 
   LeaderboardService(this.apiService);
 
-  Future<List<LeaderboardEntry>> getRoomLeaderboard(String roomCode) async {
-    final response = await apiService.get('/api/rooms/$roomCode/leaderboard');
-    return (response.data as List)
-        .map((entry) => LeaderboardEntry.fromJson(entry))
-        .toList();
+  Future<List<Map<String, dynamic>>> getRoomLeaderboard(String roomCode) async {
+    try{
+      final response = await apiService.get("game/leaderboard/?room_code=$roomCode");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return response.data;
+      }
+      return [{"":""}];
+    }catch (e) {
+      return [{"":""}];
+    }
   }
 
   Future<Map<String, dynamic>> getPlayerStats(String playerId) async {
